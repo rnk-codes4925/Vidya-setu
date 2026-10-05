@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b72e7" />
+      <stop offset="50%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#f47b16" />
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#f47b16" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="95" fill="#081426" stroke="url(#grad1)" stroke-width="4"/>
+  <circle cx="100" cy="100" r="82" fill="url(#glow)"/>
+  <!-- Open Book Symbol (Vidya) -->
+  <path d="M40,130 C65,115 85,118 100,128 C115,118 135,115 160,130 L160,65 C135,50 115,53 100,63 C85,53 65,50 40,65 Z" fill="#ffffff" fill-opacity="0.95" />
+  <path d="M100,63 L100,128" stroke="#081426" stroke-width="3" stroke-linecap="round"/>
+  <!-- Bridge Arch Symbol (Setu) -->
+  <path d="M35,150 Q100,105 165,150" fill="none" stroke="#f47b16" stroke-width="6" stroke-linecap="round"/>
+  <path d="M50,154 Q100,118 150,154" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4,4"/>
+  <!-- Sun / Wisdom Rays -->
+  <circle cx="100" cy="40" r="8" fill="#ffd23f"/>
+  <path d="M100,24 L100,18 M84,30 L78,25 M116,30 L122,25 M74,40 L68,40 M126,40 L132,40" stroke="#ffd23f" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07101d">
+  <title>Vidya Setu — Learning & Teaching Platform</title>
+  <meta name="description" content="Comprehensive educational platform for Classes 6-12 and College Computer Science, featuring interactive AI tutoring, live digital classroom, coding notes, and whiteboard." />
+  <meta property="og:title" content="Vidya Setu — Learning & Teaching Platform" />
+  <meta property="og:description" content="Comprehensive educational platform for Classes 6-12 and College Computer Science, featuring interactive AI tutoring, live digital classroom, coding notes, and whiteboard." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/assets/logo.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/tus-js-client@4.3.1/dist/tus.min.js"></script>
+  <script defer src="/config.js"></script>
+  <script defer src="/curriculum.js"></script>
+  <script defer src="/app.js"></script>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <button class="brand" data-route="home" aria-label="Vidya Setu Home">
+      <img src="/assets/logo.svg" alt="Vidya Setu logo">
+      <span><strong>Vidya Setu</strong><small>Learn • Teach • Explore</small></span>
+    </button>
+    <div class="top-actions">
+      <button class="btn" data-route="college-coding" style="background:#0c1f38;border-color:#1e6fd1;color:#67e8f9;display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:8px 12px" title="College Computer Science &amp; Coding Notes">💻 <span>College &amp; Coding</span></button>
+      <button class="btn" data-route="ai-tutor" style="background:#1f1038;border-color:#7c3aed;color:#d8b4fe;display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:8px 12px" title="Interactive AI Tutor">🤖 <span>AI Tutor</span></button>
+      <button class="icon-btn theme-toggle-btn" data-action="toggleTheme" title="Switch to light/dark mode" aria-label="Switch theme">◐</button>
+      <button id="loginPortalBtn" class="btn primary" data-action="auth">Login</button>
+      <button class="avatar-btn" data-route="profile" title="Profile"><span id="avatarInitial">V</span></button>
+      <button id="mobileMenuBtn" class="icon-btn mobile-menu-btn" data-action="toggleMobileSidebar" title="Open menu" aria-label="Open navigation menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <div id="errorBar" class="error-bar hidden"></div>
+
+  <div class="shell">
+    <aside class="sidebar" id="sidebar">
+      <nav>
+        <button data-route="home" class="nav-item active">🏠 <span>Dashboard</span></button>
+        <button data-route="college-coding" class="nav-item" style="border-left:3px solid #00d2ff">💻 <span>College &amp; Coding</span><span class="badge live" style="margin-left:auto;font-size:9px">Notes</span></button>
+        <button data-route="ai-tutor" class="nav-item" style="border-left:3px solid #a855f7">🤖 <span>AI Tutor</span><span class="badge live" style="margin-left:auto;font-size:9px;background:#7c3aed">Active</span></button>
+        <button data-route="classes" class="nav-item">📚 <span>Academic Library</span></button>
+        <button data-route="learning-studio" class="nav-item">📝 <span>My Learning Studio</span></button>
+        <button data-route="whiteboard" class="nav-item">✏️ <span>Whiteboard</span></button>
+        <button data-route="quiz" class="nav-item">🎯 <span>Concept Quiz</span></button>
+        <button data-route="resources" class="nav-item">🔬 <span>Simulations &amp; Resources</span></button>
+        <button data-route="social" class="nav-item">🌐 <span>Vidya Setu Links</span></button>
+        <button data-route="community" class="nav-item">💬 <span>Discussions &amp; Support</span></button>
+        <button data-route="teacher" class="nav-item">👨‍🏫 <span>Teacher Portal</span></button>
+        <button data-route="admin" class="nav-item">⚙️ <span>Admin CMS</span></button>
+        <button data-route="profile" class="nav-item">👤 <span>Profile</span></button>
+      </nav>
+      <div class="sidebar-footer" id="sidebarProfileCard">
+        <button class="sidebar-profile-btn" data-route="profile" title="Open my profile" style="border:0;background:transparent;color:inherit;cursor:pointer;display:flex;align-items:center;gap:10px;text-align:left;width:100%">
+          <div class="sidebar-profile-avatar" style="width:38px;height:38px;border-radius:50%;background:#0b72e7;display:grid;place-items:center;font-weight:bold;color:#fff">
+            <span id="sidebarProfileInitial">V</span>
+          </div>
+          <div class="sidebar-profile-copy">
+            <strong id="sidebarProfileName" style="display:block;font-size:13px">Guest Learner</strong>
+            <small id="sidebarProfileRole" style="display:block;color:#8ea1bc;font-size:11px">Student Access</small>
+          </div>
+        </button>
+      </div>
+    </aside>
+    <div id="sidebarBackdrop" class="sidebar-backdrop hidden" data-action="closeMobileSidebar" aria-hidden="true"></div>
+
+    <main id="main" class="main"></main>
+  </div>
+
+  <div id="modalRoot"></div>
+  <div id="toastRoot" class="toast-root"></div>
+
+  <!-- Floating Interactive AI Tutor Widget -->
+  <div id="aiTutorWidget">
+    <button id="aiTutorFloatingBtn" class="ai-floating-btn" data-action="toggleAITutorDrawer" aria-label="Open AI Tutor" title="Ask AI Tutor">
+      <span class="ai-floating-pulse"></span>
+      <span class="ai-floating-icon">🤖</span>
+      <span class="ai-floating-text">AI Tutor</span>
+    </button>
+    <div id="aiTutorDrawer" class="ai-tutor-drawer hidden" style="display: none;" aria-hidden="true">
+      <div class="ai-drawer-header">
+        <div class="ai-drawer-title">
+          <span class="ai-badge-bot">🤖</span>
+          <div>
+            <strong>Vidya AI Tutor</strong>
+            <small>Coding Debugger • Doubts • Solutions</small>
+          </div>
+        </div>
+        <div class="ai-drawer-actions">
+          <button class="icon-btn-sm" data-route="ai-tutor" title="Open Fullscreen Portal">⛶</button>
+          <button class="icon-btn-sm" data-action="clearAIChat" title="Clear Chat">🗑️</button>
+          <button class="icon-btn-sm" data-action="closeAITutorDrawer" title="Close AI Tutor">✕</button>
+        </div>
+      </div>
+      <div class="ai-drawer-chips">
+        <button class="ai-chip" data-action="quickPrompt" data-prompt="Explain Two-Pointers vs Sliding Window with code">Two-Pointers</button>
+        <button class="ai-chip" data-action="quickPrompt" data-prompt="How does Virtual Memory & Paging work in OS?">Virtual Memory</button>
+        <button class="ai-chip" data-action="quickPrompt" data-prompt="Explain React useEffect dependency array rules">React Hooks</button>
+        <button class="ai-chip" data-action="quickPrompt" data-prompt="Database Normalization 1NF to 3NF">DBMS Normalization</button>
+        <button class="ai-chip" data-action="quickPrompt" data-prompt="TCP 3-Way Handshake step-by-step">TCP Handshake</button>
+      </div>
+      <div id="aiDrawerMessages" class="ai-drawer-messages">
+        <div class="ai-msg bot">
+          <div class="ai-msg-bubble">
+            👋 Hi! I am your <strong>Vidya AI Tutor</strong>.
+            <p>I can help you with:</p>
+            <ul>
+              <li>💻 <strong>Coding &amp; Debugging</strong> (C++, Python, Java, JS, DSA)</li>
+              <li>📚 <strong>College CS Concepts</strong> (OS, DBMS, Networks, System Design)</li>
+              <li>🔬 <strong>School Curriculum</strong> (Classes 6-12 Maths &amp; Science)</li>
+            </ul>
+            <p>Paste your code or ask any doubt below!</p>
+          </div>
+        </div>
+      </div>
+      <div class="ai-drawer-footer">
+        <textarea id="aiDrawerInput" class="ai-input" placeholder="Ask doubt or paste code... (Ctrl+Enter to send)" rows="2"></textarea>
+        <button id="aiDrawerVoiceBtn" class="btn ghost ai-mic-btn" data-action="voiceAITutorDrawer" title="Ask by Voice" aria-label="Ask by Voice">🎙️</button>
+        <button id="aiDrawerSendBtn" class="btn primary ai-send-btn" data-action="sendAITutorDrawerMsg">Send ➔</button>
+        <button class="btn ghost ai-close-drawer-btn" data-action="closeAITutorDrawer" title="Finish and close AI Tutor">✕ Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "name": "Vidya Setu — Learning & Teaching Platform",
+  "description": "Comprehensive educational platform for Classes 6-12 and College Computer Science, featuring interactive AI tutoring, live digital classroom, coding notes, and whiteboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

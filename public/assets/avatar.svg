@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="60%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </radialGradient>
+    <linearGradient id="aiGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+  </defs>
+  <rect width="300" height="300" rx="40" fill="url(#bg)"/>
+  <!-- Head & Shoulders Silhouette with futuristic academic aesthetic -->
+  <circle cx="150" cy="115" r="48" fill="#e0e7ff"/>
+  <!-- Glasses / Digital Visor -->
+  <rect x="122" y="105" width="24" height="15" rx="4" fill="none" stroke="#0284c7" stroke-width="3"/>
+  <rect x="154" y="105" width="24" height="15" rx="4" fill="none" stroke="#0284c7" stroke-width="3"/>
+  <path d="M146,112 L154,112" stroke="#0284c7" stroke-width="3"/>
+  <!-- Smile -->
+  <path d="M138,135 Q150,145 162,135" fill="none" stroke="#4338ca" stroke-width="3" stroke-linecap="round"/>
+  <!-- Hair / Graduation Cap motif -->
+  <path d="M102,105 C100,70 130,60 150,60 C170,60 200,70 198,105 C185,75 115,75 102,105 Z" fill="#1e1b4b"/>
+  <!-- Blazer / Outfit -->
+  <path d="M80,240 C80,185 110,175 150,175 C190,175 220,185 220,240 Z" fill="#1e293b"/>
+  <path d="M150,175 L150,240" stroke="#38bdf8" stroke-width="2"/>
+  <polygon points="150,175 130,220 170,220" fill="#38bdf8" fill-opacity="0.2"/>
+  <!-- AI Neural Network Ring -->
+  <circle cx="150" cy="150" r="130" fill="none" stroke="url(#aiGlow)" stroke-width="3" stroke-dasharray="8 6"/>
+  <circle cx="45" cy="100" r="5" fill="#38bdf8"/>
+  <circle cx="255" cy="100" r="5" fill="#c084fc"/>
+  <circle cx="70" cy="230" r="4" fill="#38bdf8"/>
+  <circle cx="230" cy="230" r="4" fill="#818cf8"/>
+  <path d="M45,100 L90,110 M255,100 L210,110 M70,230 L110,210 M230,230 L190,210" stroke="#38bdf8" stroke-width="1.5" stroke-opacity="0.4"/>
+</svg>
